@@ -151,7 +151,7 @@ def GlobalLeaderboards():
     Hackers=hack.get().strip().split(',')
     PlayerList=Counter()  
     Levels=GetLevels()
-    f = file("leaderboard","w")
+    f = file("leaderboard.txt","w")
     leaderboards=GetLeaderboardURL(Levels)
     #Read leaderboard data and fetch players
     for name, url in leaderboards.iteritems(): 
