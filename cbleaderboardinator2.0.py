@@ -223,8 +223,10 @@ tabs = ttk.Notebook(f2)
 tabs.pack(fill=BOTH, expand=1)
 glob = ttk.Frame(tabs); # global leaderboards
 play = ttk.Frame(tabs); # score
+helpt = ttk.Frame(tabs); # score
 tabs.add(glob, text='Global')
 tabs.add(play, text='Player')
+tabs.add(helpt, text='Help')
 # global tab
 inf2=Label(glob, text="Include first ... players")
 inf2.pack(fill=BOTH, expand=1)
@@ -244,38 +246,24 @@ inf3=Label(play, text="Player ID")
 inf3.pack(fill=BOTH, expand=1)
 en3 = Entry(play, textvariable=num2)
 en3.pack(fill=BOTH, expand=1)
-st2=Label(play, textvariable=status2)
-st2.pack(fill=BOTH, expand=1)
+st2 = Entry(play, textvariable=status2, state='readonly', readonlybackground='white', fg='black')
+st2.pack()
+st2.configure(relief=FLAT)
 status2.set("Idle...")
 startb2 = Button(play, text='Start!', anchor="w", command=lambda: GetPlayerScore(num2.get(), True))
-startb2.pack(fill=BOTH, expand=1)             
+startb2.pack(fill=BOTH, expand=1)     
+#help tab
+w = Label(helpt, wraplength=400, justify=LEFT)
+w.pack(fill=BOTH, expand=1)
+w.configure(text="**What is a Steam ID?\n The steam ID is the unique number assigned to each steam account"+ \
+"that is used to identify accounts.\n\n"+\
+"**How do I find a steam ID?\n -Go to your steam profile page in your browser."+\
+"-Look at the URL. There are now 2 possibilities:\n"+\
+"A It looks like http://steamcommunity.com/profiles/[somelongnumber]. You're in luck, [somelongnumber] is your steam ID.\n"+\
+"B It looks different. The you have to go a step further:\n"+\
+"-Add /?xml=1 to the url so it looks like http://steamcommunity.com/id/dinosawer/?xml=1 \n"+
+"Somewhere at the top (2nd or 3rd line) there is a line that looks like <steamID64>[somenumber]</steamID64>\n"+\
+"[somenumber] is your steamID.\n")
 
 
 root.mainloop()
-
-
-
-
-
-''' test function, for later use
-for lb in LBListData.findall('leaderboard'):
-    url=lb.find('url').text
-    name=lb.find('name').text
-    if name.strip()=="Temple1UnlimitedEnergy":
-        LB=urllib2.urlopen(url)
-        LBstr=LB.read()
-        LBData=ET.fromstring(LBstr, parser=parser)
-        for entry in LBData.find('entries').findall('entry'):
-            rank=entry.find('rank').text
-            pid=entry.find('steamid').text
-            print("http://steamcommunity.com/profiles/"+pid+"/?xml=1")
-            Player=urllib2.urlopen("http://steamcommunity.com/profiles/"+pid+"/?xml=1")
-            Playerstr=Player.read()
-            PlayerData=ET.fromstring(Playerstr, parser=parser)
-            name=PlayerData.find('steamID').text
-            try:
-                f.write(rank+' '+name+'\n')
-            except:
-                pass
-                
-''' 
