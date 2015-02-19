@@ -32,7 +32,6 @@ Names={"White1":"The Initial Entry","BridgeA1":"Beyond the Walls", "BridgeA2":"A
 #Boring UI stuff
 root = Tk()
 root.minsize(500, 300)
-root.attributes('-zoomed', False)
 root.wm_title("Cloudbuilt Leaderboardinator 2.0")
 cent=IntVar()
 dawn=IntVar()
